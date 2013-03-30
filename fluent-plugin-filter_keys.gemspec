@@ -3,9 +3,9 @@ Gem::Specification.new do |spec|
   spec.version       = "0.0.1"
   spec.authors       = ["Kohei Hasegawa"]
   spec.email         = ["ameutau@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Fluentd plugin to filter if a specific key is present or not in event logs.}
+  spec.summary       = %q{Fluentd plugin to filter if a specific key is present or not in event logs.}
+  spec.homepage      = "https://github.com/banyan/fluent-plugin-filter_keys"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
