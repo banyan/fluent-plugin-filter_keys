@@ -31,11 +31,11 @@ $ gem install fluent-plugin-filter_keys
 
 #### ensure_keys
 
-The keys to be existed in event logs. If it doesn't match, the event log will be discarded.
+Keys to be existed in a event log. If it doesn't match, the event log will be discarded.
 
 #### denied_keys
 
-The keys to be not existed in event logs. If it matches, the event log will be discarded.
+Keys to be not existed in a event log. If it matches, the event log will be discarded.
 
 ## Contributing
 
