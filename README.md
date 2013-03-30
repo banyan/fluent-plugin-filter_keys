@@ -1,4 +1,5 @@
-# Fluent::Plugin::FilterKeys
+# fluent-plugin-filter_keys
+[![Build Status](https://secure.travis-ci.org/banyan/fluent-plugin-filter_keys.png)](http://travis-ci.org/banyan/fluent-plugin-filter_keys)
 
 ## Overview
 
