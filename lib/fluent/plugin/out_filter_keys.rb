@@ -8,6 +8,7 @@ module Fluent
 
     config_param :ensure_keys, :string, :default => nil
     config_param :denied_keys, :string, :default => nil
+    config_param :discard_tag, :string, :default => nil
 
     def configure(conf)
       super
@@ -26,6 +27,11 @@ module Fluent
         filter_record(t, time, record)
         if ensure_keys_in?(record) || denied_keys_not_in?(record)
           Engine.emit(t, time, record)
+        else
+          if :discard_tag != nil
+            t = @discard_tag << '.' << t
+            Engine.emit(t, time, record)
+          end
         end
       }
 
