@@ -179,4 +179,23 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       assert_equal '100',              e[2]['bar']
     end
   end
+
+  def test_emit_when_record_discarded
+    d = create_driver(%[
+      ensure_keys    foo, bar
+      add_tag_prefix filter_keys.
+      add_tag_and_reemit true
+    ])
+
+    record = {
+      'foo' => "50",
+    }
+
+    d.run { d.emit(record) }
+    emits = d.emits
+
+    assert_equal 1,                  emits.count
+    assert_equal 'discarded.filter_keys.test', emits[0][0]
+    assert_equal '50',               emits[0][2]['foo']
+  end
 end

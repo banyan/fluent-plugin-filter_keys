@@ -8,7 +8,9 @@ module Fluent
 
     config_param :ensure_keys, :string, :default => nil
     config_param :denied_keys, :string, :default => nil
-    config_param :discard_tag, :string, :default => nil
+    config_param :add_tag_and_reemit, :bool, :default => false
+
+    DISCARD_TAG = 'discarded'
 
     def configure(conf)
       super
@@ -19,7 +21,7 @@ module Fluent
 
       @ensure_keys = ensure_keys && ensure_keys.split(/\s*,\s*/)
       @denied_keys = denied_keys && denied_keys.split(/\s*,\s*/)
-      @discard_tag = discard_tag
+
     end
 
     def emit(tag, es, chain)
@@ -29,10 +31,7 @@ module Fluent
         if ensure_keys_in?(record) || denied_keys_not_in?(record)
           Engine.emit(t, time, record)
         else
-          if @discard_tag != nil
-            t = @discard_tag << '.' << t
-            Engine.emit(t, time, record)
-          end
+          Engine.emit("#{DISCARD_TAG}.#{t}", time, record) if @add_tag_and_reemit
         end
       }
 
