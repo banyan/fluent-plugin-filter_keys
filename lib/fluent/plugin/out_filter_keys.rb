@@ -19,6 +19,7 @@ module Fluent
 
       @ensure_keys = ensure_keys && ensure_keys.split(/\s*,\s*/)
       @denied_keys = denied_keys && denied_keys.split(/\s*,\s*/)
+      @discard_tag = discard_tag
     end
 
     def emit(tag, es, chain)
@@ -28,7 +29,7 @@ module Fluent
         if ensure_keys_in?(record) || denied_keys_not_in?(record)
           Engine.emit(t, time, record)
         else
-          if :discard_tag != nil
+          if @discard_tag != nil
             t = @discard_tag << '.' << t
             Engine.emit(t, time, record)
           end
