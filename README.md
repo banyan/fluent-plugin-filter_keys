@@ -37,6 +37,10 @@ Keys to be existed in a event log. If it doesn't match, the event log will be di
 
 Keys to be not existed in a event log. If it matches, the event log will be discarded.
 
+#### add_tag_and_reemit
+
+Default false. if this configure parameter is true and doesn't match keys, add tag 'discarded' and reemit.
+
 ## Contributing
 
 1. Fork it
