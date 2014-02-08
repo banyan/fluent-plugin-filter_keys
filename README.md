@@ -1,4 +1,4 @@
-# fluent-plugin-filter_keys
+# fluent-plugin-filter_keys, a plugin for [Fluentd](http://fluentd.org)
 [![Build Status](https://secure.travis-ci.org/banyan/fluent-plugin-filter_keys.png)](http://travis-ci.org/banyan/fluent-plugin-filter_keys)
 
 ## Overview
