@@ -1,9 +1,9 @@
-# fluent-plugin-filter_keys, a plugin for [Fluentd](http://fluentd.org)
+# fluent-plugin-filter_keys
 [![Build Status](https://secure.travis-ci.org/banyan/fluent-plugin-filter_keys.png)](http://travis-ci.org/banyan/fluent-plugin-filter_keys)
 
 ## Overview
 
-Fluentd plugin to filter if a specific key is present or not in event logs.
+[Fluentd](http://fluentd.org) plugin to filter if a specific key is present or not in event logs.
 
 ## Installation
 
