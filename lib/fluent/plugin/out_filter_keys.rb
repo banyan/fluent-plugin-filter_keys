@@ -4,6 +4,11 @@ module Fluent
   class FilterKeysOutput < Output
     include Fluent::HandleTagNameMixin
 
+    # Define `router` method of v0.12 to support v0.10 or earlier
+    unless method_defined?(:router)
+      define_method("router") { Fluent::Engine }
+    end
+
     Fluent::Plugin.register_output('filter_keys', self)
 
     config_param :ensure_keys, :string, :default => nil
@@ -29,9 +34,9 @@ module Fluent
         t = tag.dup
         filter_record(t, time, record)
         if ensure_keys_in?(record) || denied_keys_not_in?(record)
-          Engine.emit(t, time, record)
+          router.emit(t, time, record)
         else
-          Engine.emit("#{DISCARD_TAG}.#{t}", time, record) if @add_tag_and_reemit
+          router.emit("#{DISCARD_TAG}.#{t}", time, record) if @add_tag_and_reemit
         end
       }
 
