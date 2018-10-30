@@ -1,13 +1,11 @@
 # coding: utf-8
+require 'fluent/plugin/output'
 
 module Fluent
   class FilterKeysOutput < Output
     include Fluent::HandleTagNameMixin
 
-    # Define `router` method of v0.12 to support v0.10 or earlier
-    unless method_defined?(:router)
-      define_method("router") { Fluent::Engine }
-    end
+    helpers :event_emitter
 
     Fluent::Plugin.register_output('filter_keys', self)
 
@@ -29,7 +27,7 @@ module Fluent
 
     end
 
-    def emit(tag, es, chain)
+    def process(tag, es)
       es.each { |time, record|
         t = tag.dup
         filter_record(t, time, record)
@@ -39,8 +37,6 @@ module Fluent
           router.emit("#{DISCARD_TAG}.#{t}", time, record) if @add_tag_and_reemit
         end
       }
-
-      chain.next
     end
 
     def filter_record(tag, time, record)

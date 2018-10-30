@@ -8,9 +8,9 @@ class FilterKeysOutputTest < Test::Unit::TestCase
     Fluent::Test.setup
   end
 
-  def create_driver(conf, tag = 'test')
-    Fluent::Test::OutputTestDriver.new(
-      Fluent::FilterKeysOutput, tag
+  def create_driver(conf)
+    Fluent::Test::Driver::Output.new(
+      Fluent::FilterKeysOutput
     ).configure(conf)
   end
 
@@ -53,8 +53,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'bar' => "100",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 1,                  emits.count
     assert_equal 'filter_keys.test', emits[0][0]
@@ -73,8 +73,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'bar' => "100",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 1,                  emits.count
     assert_equal 'filter_keys.test', emits[0][0]
@@ -93,8 +93,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'at'  => "all",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 0,  emits.count
     assert_equal [], emits
@@ -110,8 +110,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'foo' => "50",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 0,  emits.count
     assert_equal [], emits
@@ -128,8 +128,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'bar' => "100",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 0,  emits.count
     assert_equal [], emits
@@ -146,8 +146,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'bar' => "100",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 1,                  emits.count
     assert_equal 'filter_keys.test', emits[0][0]
@@ -166,10 +166,10 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'bar' => "100",
     }
 
-    d.run do
-      3.times { d.emit(record) }
+    d.run(default_tag: 'test') do
+      3.times { d.feed(record) }
     end
-    emits = d.emits
+    emits = d.events
 
     assert_equal 3, emits.count
 
@@ -191,8 +191,8 @@ class FilterKeysOutputTest < Test::Unit::TestCase
       'foo' => "50",
     }
 
-    d.run { d.emit(record) }
-    emits = d.emits
+    d.run(default_tag: 'test') { d.feed(record) }
+    emits = d.events
 
     assert_equal 1,                  emits.count
     assert_equal 'discarded.filter_keys.test', emits[0][0]
