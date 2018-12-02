@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-filter_keys"
-  spec.version       = "0.1.0"
+  spec.version       = "1.0.0"
   spec.authors       = ["Kohei Hasegawa"]
   spec.email         = ["ameutau@gmail.com"]
   spec.description   = %q{Fluentd plugin to filter if a specific key is present or not in event logs.}
